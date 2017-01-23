@@ -2,6 +2,7 @@ package com.github.rahulrvp.coolbaseapp;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -150,5 +151,16 @@ public class BaseActivity extends AppCompatActivity {
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
 
         return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
+    }
+
+    public boolean hasPermission(Context context, String permission) {
+        boolean status = false;
+
+        try {
+            status = ContextCompat.checkSelfPermission(context, permission) == PackageManager.PERMISSION_GRANTED;
+        } catch (Throwable ignored) {
+        }
+
+        return status;
     }
 }
